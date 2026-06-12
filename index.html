@@ -1,0 +1,554 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  .pf-root {
+    font-family: 'Inter', sans-serif;
+    background: #050816;
+    color: #f0f4ff;
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+
+  /* NAV */
+  .pf-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(5,8,22,0.9);
+  }
+  .pf-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #60a5fa;
+    letter-spacing: 0.05em;
+  }
+  .pf-logo span { color: rgba(255,255,255,0.35); }
+  .pf-nav-links { display: flex; gap: 24px; }
+  .pf-nav-links a {
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .pf-nav-links a:hover { color: #60a5fa; }
+  .pf-nav-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 7px 14px;
+    border: 1px solid rgba(96,165,250,0.4);
+    border-radius: 6px;
+    color: #60a5fa;
+    cursor: pointer;
+    background: rgba(96,165,250,0.06);
+  }
+
+  /* HERO */
+  .pf-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 52px 32px 48px;
+    position: relative;
+  }
+  .pf-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(96,165,250,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .pf-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #60a5fa;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pf-eyebrow::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: #60a5fa;
+  }
+  .pf-h1 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .pf-h1 .accent { color: #60a5fa; }
+  .pf-role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 20px;
+    min-height: 20px;
+  }
+  .pf-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.75;
+    max-width: 340px;
+    margin-bottom: 28px;
+  }
+  .pf-btns { display: flex; gap: 12px; }
+  .pf-btn-primary {
+    padding: 10px 20px;
+    background: #2563eb;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .pf-btn-ghost {
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.6);
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .pf-stats {
+    display: flex;
+    gap: 28px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .pf-stat-num {
+    font-size: 22px;
+    font-weight: 600;
+    color: #f0f4ff;
+  }
+  .pf-stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* TERMINAL */
+  .pf-terminal {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .pf-term-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .pf-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .pf-dot.r { background: #ff5f57; }
+  .pf-dot.y { background: #ffbd2e; }
+  .pf-dot.g { background: #28ca41; }
+  .pf-term-title {
+    margin-left: 8px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.04em;
+  }
+  .pf-term-body { padding: 18px 20px; line-height: 2.1; }
+  .pf-prompt { color: #60a5fa; }
+  .pf-cmd { color: rgba(255,255,255,0.8); }
+  .pf-key { color: rgba(255,255,255,0.35); }
+  .pf-val { color: #34d399; }
+  .pf-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(96,165,250,0.12);
+    border-radius: 4px;
+    color: #60a5fa;
+    font-size: 10px;
+    margin: 2px 3px 2px 0;
+  }
+
+  /* DIVIDER */
+  .pf-divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    margin: 0 32px;
+  }
+
+  /* PROJECTS */
+  .pf-section { padding: 40px 32px; }
+  .pf-section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .pf-section-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+  .pf-projects { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pf-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .pf-card:hover { border-color: rgba(96,165,250,0.3); }
+  .pf-card-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: rgba(96,165,250,0.1);
+    border: 1px solid rgba(96,165,250,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    margin-bottom: 14px;
+    color: #60a5fa;
+  }
+  .pf-card h4 {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #f0f4ff;
+  }
+  .pf-card p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .pf-card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pf-card-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.4);
+  }
+  .pf-card-arrow {
+    position: absolute;
+    top: 18px; right: 18px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* SKILLS */
+  .pf-skill-groups { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .pf-skill-group {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .pf-skill-group-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #60a5fa;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .pf-skill-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+  }
+  .pf-skill-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(96,165,250,0.5);
+    flex-shrink: 0;
+  }
+
+  /* CONTACT */
+  .pf-contact-inner {
+    background: rgba(37,99,235,0.08);
+    border: 1px solid rgba(96,165,250,0.15);
+    border-radius: 14px;
+    padding: 28px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .pf-contact-heading { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .pf-contact-sub { font-size: 12px; color: rgba(255,255,255,0.4); }
+  .pf-contact-links { display: flex; gap: 10px; }
+  .pf-contact-link {
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .pf-contact-link.primary {
+    background: #2563eb;
+    color: white;
+    border: none;
+  }
+  .pf-contact-link.ghost {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* FOOTER */
+  .pf-footer {
+    padding: 18px 32px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .pf-footer-status { display: flex; align-items: center; gap: 6px; }
+  .pf-status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #34d399;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+</style>
+
+<div class="pf-root">
+  <link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+
+  <nav class="pf-nav">
+    <div class="pf-logo"><span>~/</span>vedavidyadaran</div>
+    <div class="pf-nav-links">
+      <a href="#">about</a>
+      <a href="#">projects</a>
+      <a href="#">skills</a>
+      <a href="#">contact</a>
+    </div>
+    <!---<div class="pf-nav-cta">hire me</div> --->
+  </nav>
+
+  <div class="pf-hero">
+    <div>
+      <!---<div class="pf-eyebrow">Available for new roles</div> --->
+      <div class="pf-h1">Infrastructure<br>that <span class="accent">doesn't</span><br>break at 3am.</div>
+      <div class="pf-role" id="pf-typing">▎</div>
+      <div class="pf-desc">Building resilient infrastructure through automation, cloud engineering, and Site Reliability practices. Experienced in enterprise Windows, VMware, Terraform, Azure, Docker, and production operations.</div>
+      <div class="pf-btns">
+        <button class="pf-btn-primary">View Projects</button>
+        <button class="pf-btn-ghost">Download CV</button>
+      </div>
+      <div class="pf-stats">
+        <div>
+          <div class="pf-stat-num">5+</div>
+          <div class="pf-stat-label">Years Exp.</div>
+        </div>
+        <div>
+          <div class="pf-stat-num">12+</div>
+          <div class="pf-stat-label">Projects</div>
+        </div>
+        <div>
+          <div class="pf-stat-num">99.9%</div>
+          <div class="pf-stat-label">Uptime SLO</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pf-terminal">
+      <div class="pf-term-bar">
+        <div class="pf-dot r"></div>
+        <div class="pf-dot y"></div>
+        <div class="pf-dot g"></div>
+        <span class="pf-term-title">~/portfolio — zsh</span>
+      </div>
+      <div class="pf-term-body">
+        <div><span class="pf-prompt">❯</span> <span class="pf-cmd">whoami --verbose</span></div>
+        <div><span class="pf-key">name</span>      <span class="pf-val">VedaVidyadaran S</span></div>
+        <div><span class="pf-key">location</span>  <span class="pf-val">India 🇮🇳</span></div>
+        <div><span class="pf-key">role</span>      <span class="pf-val">L2 SRE → Hybrid Cloud Engineer</span></div>
+        <div><span class="pf-key">cert</span>      <span class="pf-val">AWS SAA ✓</span></div>
+        <br>
+        <div><span class="pf-prompt">❯</span> <span class="pf-cmd">cat stack.txt</span></div>
+        <div>
+          <span class="pf-tag">VMware</span><span class="pf-tag">Windows Server</span><span class="pf-tag">AWS</span>
+          <span class="pf-tag">Terraform</span><span class="pf-tag">Docker</span><span class="pf-tag">PowerShell</span>
+          <span class="pf-tag">Python</span><span class="pf-tag">Azure</span>
+        </div>
+        <br>
+        <div><span class="pf-prompt">❯</span> <span class="pf-cmd">uptime</span></div>
+        <div style="color:rgba(255,255,255,0.35)">5 years, 0 major incidents 🟢</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="pf-divider">
+
+  <div class="pf-section">
+    <div class="pf-section-label">// featured work</div>
+    <div class="pf-section-title">Projects</div>
+    <div class="pf-projects">
+
+      <div class="pf-card">
+        <div class="pf-card-arrow"><i class="ti ti-arrow-up-right" aria-hidden="true"></i></div>
+        <div class="pf-card-icon"><i class="ti ti-music" aria-hidden="true"></i></div>
+        <h4>Navidrome Music Server</h4>
+        <p>Self-hosted music streaming platform deployed on AWS with Docker and Nginx reverse proxy.</p>
+        <div class="pf-card-tags">
+          <span class="pf-card-tag">Docker</span>
+          <span class="pf-card-tag">Nginx</span>
+          <span class="pf-card-tag">AWS EC2</span>
+        </div>
+      </div>
+
+      <div class="pf-card">
+        <div class="pf-card-arrow"><i class="ti ti-arrow-up-right" aria-hidden="true"></i></div>
+        <div class="pf-card-icon"><i class="ti ti-shield-lock" aria-hidden="true"></i></div>
+        <h4>Secure File Transfer</h4>
+        <p>Cloud-based secure storage pipeline with automated malware scanning and access controls.</p>
+        <div class="pf-card-tags">
+          <span class="pf-card-tag">Azure</span>
+          <span class="pf-card-tag">PowerShell</span>
+          <span class="pf-card-tag">Storage</span>
+        </div>
+      </div>
+
+      <div class="pf-card">
+        <div class="pf-card-arrow"><i class="ti ti-arrow-up-right" aria-hidden="true"></i></div>
+        <div class="pf-card-icon"><i class="ti ti-brand-terraform" aria-hidden="true"></i></div>
+        <h4>Terraform Azure Deployment</h4>
+        <p>Full IaC deployment pipeline with GitHub Actions CI/CD, modular resource structure.</p>
+        <div class="pf-card-tags">
+          <span class="pf-card-tag">Terraform</span>
+          <span class="pf-card-tag">Azure</span>
+          <span class="pf-card-tag">GitHub Actions</span>
+        </div>
+      </div>
+
+      <div class="pf-card">
+        <div class="pf-card-arrow"><i class="ti ti-arrow-up-right" aria-hidden="true"></i></div>
+        <div class="pf-card-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div>
+        <h4>SRE Implementation</h4>
+        <p>Defined SLIs, SLOs and error budgets across production services. Reduced MTTR by 40%.</p>
+        <div class="pf-card-tags">
+          <span class="pf-card-tag">SLO/SLI</span>
+          <span class="pf-card-tag">Observability</span>
+          <span class="pf-card-tag">SRE</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="pf-divider">
+
+  <div class="pf-section">
+    <div class="pf-section-label">// toolkit</div>
+    <div class="pf-section-title">Skills</div>
+    <div class="pf-skill-groups">
+      <div class="pf-skill-group">
+        <div class="pf-skill-group-title">Infrastructure</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>Windows Server</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>VMware / VCF</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>Linux</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>Networking</div>
+      </div>
+      <div class="pf-skill-group">
+        <div class="pf-skill-group-title">Cloud & DevOps</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>AWS (SAA Certified)</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>Azure</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>Terraform</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>Docker</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>GitHub Actions</div>
+      </div>
+      <div class="pf-skill-group">
+        <div class="pf-skill-group-title">Automation</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>PowerShell</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>Python</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>SRE Practices</div>
+        <div class="pf-skill-item"><div class="pf-skill-dot"></div>Incident Response</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pf-section" style="padding-top:0">
+    <div class="pf-contact-inner">
+      <div>
+        <div class="pf-contact-heading">Let's work together</div>
+        <div class="pf-contact-sub">Open to SRE, Platform, or Cloud Infrastructure roles</div>
+      </div>
+      <div class="pf-contact-links">
+        <a class="pf-contact-link primary" href="mailto:svedavidyadaran@gmail.com">
+          <i class="ti ti-mail" aria-hidden="true"></i> Email me
+        </a>
+        <a class="pf-contact-link ghost" href="https://www.linkedin.com/in/vedavidyadaran-s-115799265/">
+          <i class="ti ti-brand-linkedin" aria-hidden="true"></i> LinkedIn
+        </a>
+        <a class="pf-contact-link ghost" href="https://github.com/technerd6996">
+          <i class="ti ti-brand-github" aria-hidden="true"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="pf-footer">
+    <div>© 2026 VedaVidyadaran S</div>
+    <!---<div class="pf-footer-status">
+      <div class="pf-status-dot"></div>
+      Available for hire
+    </div>--->
+  </div>
+
+</div>
+
+<script>
+  const roles = ["SRE Engineer", "Infrastructure Engineer", "Automation Enthusiast", "Cloud Practitioner"];
+  let ri = 0, ci = 0, del = false;
+  const el = document.getElementById('pf-typing');
+  function tick() {
+    const word = roles[ri];
+    if (!del) {
+      el.textContent = word.substring(0, ci + 1) + '▎';
+      ci++;
+      if (ci === word.length) { del = true; setTimeout(tick, 1600); return; }
+    } else {
+      el.textContent = word.substring(0, ci - 1) + '▎';
+      ci--;
+      if (ci === 0) { del = false; ri = (ri + 1) % roles.length; }
+    }
+    setTimeout(tick, del ? 45 : 90);
+  }
+  tick();
+</script>
